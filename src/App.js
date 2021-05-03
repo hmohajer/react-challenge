@@ -32,14 +32,17 @@ export class App extends Component {
                 params: this.state.searchParams,
             })
             .then((res) => {
-                this.setState({ user: res.data });
+                this.setState({ user: res.data },this.getRepo);
             })
             .catch((err) => {
                 this.setState({ user: null });
+                console.log(err)
             });
+        }
 
+        getRepo = () => {
         axios
-            .get(`http://api.github.com/users/${query}/repos`)
+            .get(this.state.user.repos_url)
             .then((res) => {
                 this.setState({ repos: res.data });
             })
@@ -76,13 +79,3 @@ export class App extends Component {
 }
 
 export default App;
-
-//7174cbd7a05cc08023d8356bfdd7b0fea7deca04
-// Client ID
-// 535cfd6d6dc3598c7ada
-
-//http://api.github.com/users/<USER_NAME>?client_id=<YOUR_CLIENT_ID>&client_secret=<YOUR_CLIENT_SECRET>&sort=created
-//http://api.github.com/users/hmohajer?client_id=535cfd6d6dc3598c7ada&client_secret=7174cbd7a05cc08023d8356bfdd7b0fea7deca04&sort=created
-//http://api.github.com/users/torvalds?client_id=535cfd6d6dc3598c7ada&client_secret=7174cbd7a05cc08023d8356bfdd7b0fea7deca04&sort=created
-
-// http://api.github.com/users/torvalds/repos?client_id=&client_secret=&sort=created
