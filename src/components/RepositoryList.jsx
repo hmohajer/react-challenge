@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function RepositoryList({ repos }) {
     return (
@@ -27,6 +28,11 @@ function RepositoryList({ repos }) {
             </tbody>
         </table>
     );
+}
+
+
+RepositoryList.propTypes = {
+    repos: PropTypes.object.isRequired,
 }
 
 export default RepositoryList;

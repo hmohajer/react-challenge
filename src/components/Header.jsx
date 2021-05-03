@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBar from "./SearchBar";
+import PropTypes from "prop-types";
 
 function Header(props) {
     return (
@@ -14,4 +15,7 @@ function Header(props) {
     );
 }
 
+Header.propTypes = {
+    searchUser: PropTypes.string.isRequired
+}
 export default Header;

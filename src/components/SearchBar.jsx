@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 
 export class SearchBar extends Component {
     constructor(props) {
@@ -38,6 +40,11 @@ export class SearchBar extends Component {
             </form>
         );
     }
+}
+
+
+SearchBar.propTypes = {
+    search: PropTypes.func.isRequired,
 }
 
 export default SearchBar;

@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function UserShow({user}) {
+function UserInfo({user}) {
     return (
         <div className="container">
             <div className=" row mt-3">
@@ -21,4 +22,8 @@ function UserShow({user}) {
     );
 }
 
-export default UserShow;
+UserInfo.propTypes = {
+    user: PropTypes.object.isRequired,
+}
+
+export default UserInfo;

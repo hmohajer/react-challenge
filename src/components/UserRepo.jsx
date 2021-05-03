@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Pagination from "./Pagination";
 import RepositoryList from "./RepositoryList";
 import _ from "lodash";
+import PropTypes from "prop-types";
+
 
 export class UserRepo extends Component {
     constructor(props) {
@@ -50,6 +52,13 @@ export class UserRepo extends Component {
             </div>
         );
     }
+}
+
+
+UserRepo.propTypes = {
+    repos: PropTypes.object.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
 }
 
 export default UserRepo;
