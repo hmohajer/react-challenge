@@ -5,7 +5,7 @@ function UserShow({user}) {
         <div className="container">
             <div className=" row mt-3">
                 <div className="col-2">
-                    <img className="w-100" src={user.avatar_url} alt="user avatar " />
+                    <img className="w-100" src={user.avatar_url} alt="user avatar" />
                 </div>
                 <div className="col">
                     <ul className="list-group">

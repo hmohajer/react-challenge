@@ -16,8 +16,9 @@ export class App extends Component {
             defaultUser: "torvalds",
             searchParams: {
                 sort: "created",
-                client_id: "535cfd6d6dc3598c7ada",
-                client_secret: "7174cbd7a05cc08023d8356bfdd7b0fea7deca04",
+                client_id: "",
+                client_secret: "",
+                repoCurrentPage: 1,
             },
         };
     }
@@ -26,21 +27,46 @@ export class App extends Component {
         this.getUser(this.state.defaultUser);
     }
 
+    render() {
+        return (
+            <div className="container">
+                <Header searchUser={this.searchUser} />
+                {this.state.user ? (
+                    <React.Fragment>
+                        <UserInfo user={this.state.user} />
+                        <hr />
+                        <UserRepo
+                            repos={this.state.repos}
+                            currentPage={this.state.repoCurrentPage}
+                            onPageChange={this.handlePageChange}
+                        />
+                    </React.Fragment>
+                ) : (
+                    <NotFound />
+                )}
+                <Footer />
+            </div>
+        );
+    }
+
     getUser = (query) => {
         axios
             .get("http://api.github.com/users/" + query, {
                 params: this.state.searchParams,
             })
             .then((res) => {
-                this.setState({ user: res.data },this.getRepo);
+                this.setState(
+                    { user: res.data, repoCurrentPage: 1 },
+                    this.getRepo
+                );
             })
             .catch((err) => {
                 this.setState({ user: null });
-                console.log(err)
+                console.log(err);
             });
-        }
+    };
 
-        getRepo = () => {
+    getRepo = () => {
         axios
             .get(this.state.user.repos_url)
             .then((res) => {
@@ -55,27 +81,9 @@ export class App extends Component {
         this.getUser(query);
     };
 
-    render() {
-        return (
-            <div className="container">
-                <Header searchUser={this.searchUser} />
-                {this.state.user ? (
-                    <React.Fragment>
-                        <UserInfo user={this.state.user} />
-                        <hr />
-                        {this.state.repos.length ? (
-                            <UserRepo repos={this.state.repos} />
-                        ) : (
-                            <h3>There is no repository!</h3>
-                        )}
-                    </React.Fragment>
-                ) : (
-                    <NotFound />
-                )}
-                <Footer />
-            </div>
-        );
-    }
+    handlePageChange = (page) => {
+        this.setState({ repoCurrentPage: page });
+    };
 }
 
 export default App;
